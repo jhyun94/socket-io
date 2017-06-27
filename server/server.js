@@ -18,9 +18,11 @@ io.on('connection', (socket) => {
   })
 
   socket.on('createMessage', (data) => {
-    data.createAt = new Date().getTime();
-
-    socket.emit('newMessage', (data));
+    io.emit('newMessage', {
+      from: data.from,
+      text: data.text,
+      createdAt: new Date().getTime()
+    })
   })
 })
 
