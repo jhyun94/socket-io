@@ -5,6 +5,10 @@ var socket = io();
     
   })
 
+  socket.on('connection', function(data) {
+    console.log(data.welcome);
+  })
+
   socket.on('disconnect',function() {
     console.log('disconnected from server');
   })
