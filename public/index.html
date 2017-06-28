@@ -5,7 +5,15 @@
 </head>
 <body>
   <p>Welcome to chat room</p>
+  <ul id="messages"></ul>
+  <form id="message-form">
+    <input type="text" name='message' placeholder="message"/>
+    <button type="submit">Send</button>
+  </form>
+
+
   <script src="/socket.io/socket.io.js"></script>
+  <script src="./js/jquery-3.2.1.min.js"></script>
   <script src="./js/index.js"></script>
 </body>
 </html>
