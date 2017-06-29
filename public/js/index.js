@@ -26,7 +26,7 @@ var socket = io();
       from: 'User',
       text: $('input[name=message]').val()
     }, function(){
-
+      $('input[name=message]').val('');
     })
   })
 
@@ -35,8 +35,9 @@ var socket = io();
     if (!navigator.geolocation) {
       alert('Your browser does not support geolocation');
     }
-
+    locationButton.attr('disabled', 'disabled').text('sending location..')
     navigator.geolocation.getCurrentPosition(function(position){
+      locationButton.removeAttr('disabled').text('Send location');
       socket.emit('createLocationMessage', {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
@@ -48,15 +49,13 @@ var socket = io();
 
 //listen for newLocation
   socket.on('newLocation', function(data){
-    console.log(data);
     var li = $('<li></li>');
     var a = $('<a target="_blank">My current location</a>');
+    li.text(`${data.from}: `);
     a.attr('href', data.url);
     li.append(a);
     $('#messages').append(li);
   })
-
-
 
 
 
