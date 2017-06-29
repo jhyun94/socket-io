@@ -4,6 +4,7 @@ const http = require('http');
 const socketIO = require('socket.io');
 
 const {generateMessage} = require('./utils/message');
+const {generateLocationMessage} = require('./utils/message');
 const publicPath = path.join(__dirname, '../public');
 var app = express();
 var server = http.createServer(app);
@@ -25,6 +26,10 @@ io.on('connection', (socket) => {
   socket.on('createMessage', (data, callback) => {;
     io.emit('newMessage', generateMessage(data.from, data.text));
     callback('hello bobo');
+  })
+
+  socket.on('createLocationMessage', (data) => {
+    io.emit('newLocation', generateLocationMessage('User', data.latitude, data.longitude));
   })
 })
 
