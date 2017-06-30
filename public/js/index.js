@@ -22,7 +22,9 @@ var socket = io();
       createdAt: formattedTime,
       from: data.from
     })
+
     $('#messages').append(html);
+    scrollToBottom();
   })
 
   $('#message-form').on('submit', function(e){
@@ -62,9 +64,22 @@ var socket = io();
       url: data.url,
       from: data.from
     })
-
     $('#messages').append(html);
+    scrollToBottom();
   })
+
+  function scrollToBottom() {
+    var $messages = $('#messages');
+    var scrollHeight = $messages.prop('scrollHeight');
+    var clientScroll = $messages.prop('clientHeight');
+    var scrollTop = $messages.prop('scrollTop');
+    var newMessageHeight = $messages.children('li:last-child').innerHeight();
+
+    if (scrollTop + clientScroll + (newMessageHeight*2) >= scrollHeight) {
+      $messages.scrollTop(scrollHeight);
+    }
+    
+  }
 
 
 
