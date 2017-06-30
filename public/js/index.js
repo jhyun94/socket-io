@@ -15,9 +15,14 @@ var socket = io();
 
   socket.on('newMessage', function(data) {
     var formattedTime = moment(data.createdAt).format('h:mm a');
-    var li = $('<li></li>');
-    li.text(`${data.from} ${formattedTime}: ${data.text}`);
-    $('#messages').append(li);
+    var template = $('#message-template').html();
+
+    html = Mustache.render(template, {
+      text: data.text,
+      createdAt: formattedTime,
+      from: data.from
+    })
+    $('#messages').append(html);
   })
 
   $('#message-form').on('submit', function(e){
@@ -51,12 +56,14 @@ var socket = io();
 //listen for newLocation
   socket.on('newLocation', function(data){
     var formattedTime = moment(data.createdAt).format('h:mm a');
-    var li = $('<li></li>');
-    var a = $('<a target="_blank">My current location</a>');
-    li.text(`${data.from} ${formattedTime}: `);
-    a.attr('href', data.url);
-    li.append(a);
-    $('#messages').append(li);
+    var template = $('#location-message-template').html();
+    var html = Mustache.render(template, {
+      createdAt: formattedTime,
+      url: data.url,
+      from: data.from
+    })
+
+    $('#messages').append(html);
   })
 
 
