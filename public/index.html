@@ -3,54 +3,30 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="/css/style.css">
+  <meta name="viewport" content="width=media-width, initial-scale=1">
+  <title>Chat | chat app</title>
 </head>
 <body>
-  <div class="chat">
-    <div class="chat__sidebar">
-      <h3>People</h3>
+  <body class="centered-form">
+    <div class="centered-form__form">
+      <form action="/chat.html">
+        <div class="form-field">
+          <h3>Join a room!</h3>
+        </div>
+        <div class="form-field">
+          <label>Enter a name</label>
+          <input type="text" name="name" autofocus>
+        </div>
+        <div class="form-field">
+          <label>Enter a room name</label>
+          <input type="text" name="room">
+        </div>
+        <div class="form-field">
+          <button>Enter</button>
+        </div>
+      </form>
     </div>
 
-    <div class="chat__main">
-      <ul id="messages" class="chat__messages"></ul>
-      <div class="chat__footer">
-        <form id="message-form"> 
-          <input type="text" name='message' placeholder="message" autofocus autocomplete='off'/>
-          <button type="submit">Send</button>
-        </form>
-        <button id="getLocation">Send Location</button>
-      </div>
-    </div>
-  </div>
-
-  <script id="message-template" type="text/template">
-    <li>
-      <div class="message__title">
-        <h4>{{from}}</h4>
-        <span>{{createdAt}}</span>
-      </div>
-      <div class="message_body">
-        <p>{{text}}</p>
-      </div>
-    </li>
-  </script>
-
-  <script id="location-message-template" type="text/template">
-    <li>
-      <div class="message__title">
-        <h4>{{from}}</h4>
-        <span>{{createdAt}}</span>
-      </div>
-      <div class="message_body">
-        <p>
-        <a href={{url}} target="_blank">My current location</a>
-        </p>
-      </div>
-    </li>
-  </script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="./js/jquery-3.2.1.min.js"></script>
-  <script src="./js/mustache.js"></script>
-  <script src="./js/moment.js"></script>
-  <script src="./js/index.js"></script>
+  </body>
 </body>
 </html>

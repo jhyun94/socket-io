@@ -1,12 +1,19 @@
 var socket = io();
   var locationButton = $('#getLocation');
   socket.on('connect', function() {
+    var params = $.deparam(window.location.search);
     console.log('client connected');
-    
-  })
 
-  socket.on('connection', function(data) {
-    console.log(data.welcome);
+
+    socket.emit('join', params, function(err) {
+      if (err){
+        alert(err)
+        window.location.href = '/';
+      }else {
+
+      }
+    })
+    
   })
 
   socket.on('disconnect',function() {
@@ -31,7 +38,6 @@ var socket = io();
     e.preventDefault();
 
     socket.emit('createMessage', {
-      from: 'User',
       text: $('input[name=message]').val()
     }, function(){
       $('input[name=message]').val('');
@@ -67,7 +73,15 @@ var socket = io();
     $('#messages').append(html);
     scrollToBottom();
   })
+//listen for update userslist
+socket.on('updateUserList', function(users){
+  var ul = $('<ul></ul>');
+  users.forEach(function(user){
+    ul.append(`<li>${user}</li>`);
+  })
 
+  $('#users').html(ul);
+})
   function scrollToBottom() {
     var $messages = $('#messages');
     var scrollHeight = $messages.prop('scrollHeight');
